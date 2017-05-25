@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angular Tour of Heroes</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Polyfills -->
+    <script src="https://unpkg.com/core-js/client/shim.min.js"></script>
+
+    <script src="https://unpkg.com/zone.js@0.8.4?main=browser"></script>
+    <script src="https://unpkg.com/systemjs@0.19.39/dist/system.src.js"></script>
+
+    <script src="systemjs.config.js"></script>
+    <script src="https://charlie2.mapmyindia.com/advancedmaps/v1/a3bfb6dd8ae8a29fa537053d42eef977/map_load?v=0.1"></script>
+    <script>
+    System.import('main').catch(function(err){
+    });
+    </script>
+  </head>
+
+  <body>
+    <my-app>Loading...</my-app>
+  </body>
+</html>
