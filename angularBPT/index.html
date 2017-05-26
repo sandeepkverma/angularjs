@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>hello world</title>
+	<script src="libs/angular.js"></script>
+	<script src="libs/angular-route.js"></script>
+	<script src="app.module.js"></script>
+	<script src="app.routes.js"></script>
+	<script src="components/live/live.controller.js"></script>
+	<script src="components/live/live.service.js"></script>
+	<script src="shared/sidebar/sidebar.directive.js"></script>
+</head>
+<body>
+<div data-ng-app="myApp">
+<a href="#/">Dashboard</a>
+<a href="#/live">Live</a>
+
+<div ng-view></div>
+
+</div>
+
+</body>
+</html>
