@@ -3,9 +3,9 @@
 
 	angular.module('myApp').factory('liveService',liveService);
 
-	liveService.$inject = ['$http'];
+	liveService.$inject = ['$http','$q','constants'];
 
-	function liveService($http){
+	function liveService($http,$q,constants){
 
 		var somevalue = '';
 		var someOtherValue = '';
@@ -21,7 +21,7 @@
 
 		function getLiveData(){
 
-			return $http.get('https://intouch.mapmyindia.com/IntouchAPI/mobileAPI/getlivedata?state=0&token=79827c99914902b178d41474610917b7549b586a')
+			return $http.get('https://intouch.mapmyindia.com/IntouchAPI/mobileAPI/getlivedata?state=0&token='+constants.token+'')
 				.then(getLiveDataCompleted)
 				.catch(getLiveDataFailed);
 
@@ -30,7 +30,17 @@
 				}
 
 				function getLiveDataFailed(error){
-					logger.error('XHR Failed for getLiveData. '+error.data);
+					var newMessage = 'XHR Failed for getLiveData';
+					error.data  = newMessage;
+					if(error.data && error.data.description)
+					{
+						newMessage+='\n'+error.data.description;
+						error.data.description = newMessage;
+
+					}
+
+					return $q.reject(error)
+					// logger.error('XHR Failed for getLiveData. '+error.data);
 				}
 
 		}

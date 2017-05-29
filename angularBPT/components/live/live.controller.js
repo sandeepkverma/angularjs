@@ -3,14 +3,15 @@
 
 	angular.module('myApp').controller('LiveController',LiveController);
 
-	LiveController.$inject = ['liveService'];
+	LiveController.$inject = ['livePrepService'];
 
-	function LiveController(liveService){
+	/* @ngInject */
+	function LiveController(livePrepService){
 
 		var liveVm = this;
 
 		liveVm.title = 'live tab';
-		liveVm.liveData = [];
+		liveVm.liveData = livePrepService.data;
 		liveVm.gotoRefresh = gotoRefresh;
 		liveVm.getLiveData = getLiveData;
 

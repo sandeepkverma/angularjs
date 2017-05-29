@@ -26,6 +26,8 @@
 		}
 	}
 
+	// ExampleController.$inject
+	
 	function ExampleController() {
     var vm = this;
     vm.min = 3;

@@ -12,8 +12,15 @@
 		.when('/live',{
 			templateUrl:'components/live/liveView.html',
 			controller:'LiveController',
-			controllerAs:'liveVm'
+			controllerAs:'liveVm',
+			resolve:{
+				livePrepService:livePrepService
+			}
 		})
+	}
+	livePrepService.$inject = ['liveService'];
+	function livePrepService(liveService){
+		return liveService.getLiveData();
 	}
 
 })();
