@@ -1,0 +1,1 @@
+!function(){"use strict";function e(e){function t(){}function i(){return liveService.getLiveData().then(function(e){return n.liveData=e,n.liveData})}var n=this;n.title="live tab",n.liveData=e.data,n.gotoRefresh=t,n.getLiveData=i}angular.module("myApp").controller("LiveController",e),e.$inject=["livePrepService"]}();

@@ -1,0 +1,1 @@
+!function(){"use strict";function e(e){e.when("/",{templateUrl:"components/dashboard/dashboardView.html"}).when("/live",{templateUrl:"components/live/liveView.html",controller:"LiveController",controllerAs:"liveVm",resolve:{livePrepService:t}})}function t(e){return e.getLiveData()}angular.module("myApp").config(e),e.$inject=["$routeProvider"],t.$inject=["liveService"]}();
