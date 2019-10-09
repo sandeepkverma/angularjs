@@ -1,8 +1,8 @@
 $(function() { 
 alert('ii ')
 });
-var intouch = intouch || {};
-intouch.customRoute = (function(){
+var myproject = myproject || {};
+myproject.customRoute = (function(){
 	'use strict';
 	var map={};
 	var routeObjDetails={};
@@ -31,7 +31,7 @@ intouch.customRoute = (function(){
 	// //////////////////////// functionality // ////////////////////////////////////////////////
 	function init(){
 		if ($.isEmptyObject(map)) {
-			map = intouch.leafMap.loadMap('map_customroute',{doubleClickZoom:false});
+			map = myproject.leafMap.loadMap('map_customroute',{doubleClickZoom:false});
 			map.off('dblclick',mapdblClickHandler);
 			map.on('dblclick',mapdblClickHandler);
 			//add autosuggestion ctrol on map
@@ -374,7 +374,7 @@ intouch.customRoute = (function(){
 		}
 	}
 	function updateAddress(latlng,id){
-		intouch.ajax("getregeocode","lat="+latlng.lat+"&lng="+latlng.lng , callBack.getregeocodeData,{routePointId:id,latitude:latlng.lat,longitude:latlng.lng});
+		myproject.ajax("getregeocode","lat="+latlng.lat+"&lng="+latlng.lng , callBack.getregeocodeData,{routePointId:id,latitude:latlng.lat,longitude:latlng.lng});
 	}
 	function updateRoutePointData(id,latlng,address){
 		el.routeItemContainer.find('div[routepointid='+id+'][routeid='+routeId+']').find(".txtpointaddress").val(address);
@@ -384,7 +384,7 @@ intouch.customRoute = (function(){
 	function calculateRoute(){
 		var pointCount = getRoutePointsCount();
 		if(pointCount >1){
-			intouch.ajax("getcustomroute", getRouteParameters(), callBack.getRouteApiData);
+			myproject.ajax("getcustomroute", getRouteParameters(), callBack.getRouteApiData);
 		}else{
 			alert("At least two point are required to calculate route.");
 		}
@@ -448,31 +448,31 @@ intouch.customRoute = (function(){
 	
 			getRouteList:function(){
 		
-				intouch.ajax(apiUrl + "getroutes", "token=" + token+"&accountId="+accountId, callBack.getRouteListData);
+				myproject.ajax(apiUrl + "getroutes", "token=" + token+"&accountId="+accountId, callBack.getRouteListData);
 			},
 			deleteRoute:function(routeId){
-				intouch.ajax(apiUrl + "deleteroute", "token=" + token+"&routeId="+routeId, callBack.deleteRouteData);
+				myproject.ajax(apiUrl + "deleteroute", "token=" + token+"&routeId="+routeId, callBack.deleteRouteData);
 			},
 			saveRoute:function(route){
-				intouch.ajax(apiUrl+"createroute",JSON.stringify(route), callBack.saveRouteData,{},"application/json");
+				myproject.ajax(apiUrl+"createroute",JSON.stringify(route), callBack.saveRouteData,{},"application/json");
 			},
 			updateRoute:function(route){
-				intouch.ajax(apiUrl+"updateroute",JSON.stringify(route), callBack.updateRouteData,{},"application/json");
+				myproject.ajax(apiUrl+"updateroute",JSON.stringify(route), callBack.updateRouteData,{},"application/json");
 			},
 			saveRouteAssign:function(routeAssign){
-				intouch.ajax(apiUrl+"insertrouteassignment",JSON.stringify(routeAssign), callBack.saveRouteAssignData,{},"application/json");
+				myproject.ajax(apiUrl+"insertrouteassignment",JSON.stringify(routeAssign), callBack.saveRouteAssignData,{},"application/json");
 			},
 			updateRouteAssign:function(routeAssign){
-				intouch.ajax(apiUrl+"updaterouteassignment",JSON.stringify(routeAssign), callBack.updateRouteAssignData,{},"application/json");
+				myproject.ajax(apiUrl+"updaterouteassignment",JSON.stringify(routeAssign), callBack.updateRouteAssignData,{},"application/json");
 			},
 			getRouteAssignList:function(timestamp){
-				intouch.ajax(apiUrl + "getrouteassignments", "token=" + token+"&accountId="+accountId+"&timestamp="+timestamp, callBack.getRouteAssignListData);
+				myproject.ajax(apiUrl + "getrouteassignments", "token=" + token+"&accountId="+accountId+"&timestamp="+timestamp, callBack.getRouteAssignListData);
 			},
 			deleteRouteAssign:function(routeAssignId){
-				intouch.ajax(apiUrl + "deleterouteassign", "token=" + token+"&routeAssignId="+routeAssignId, callBack.deleteRouteAssignData);
+				myproject.ajax(apiUrl + "deleterouteassign", "token=" + token+"&routeAssignId="+routeAssignId, callBack.deleteRouteAssignData);
 			},
 			getEvents:function(entityId,startTime,endTime,assignId){
-				intouch.ajax(apiUrl+"getevents","token=" + token + "&entityId=" + entityId + "&startTime=" + startTime + "&endTime=" + endTime + "", callBack.getEventsData,{assignId:assignId});
+				myproject.ajax(apiUrl+"getevents","token=" + token + "&entityId=" + entityId + "&startTime=" + startTime + "&endTime=" + endTime + "", callBack.getEventsData,{assignId:assignId});
 			}
 	};
 	
@@ -750,7 +750,7 @@ intouch.customRoute = (function(){
 					$('.routepoint:eq('+(pointslength-1)+')').find(".pointposition").text("End Point");
 				}
 				if(geofenceid != undefined){
-					var geofence = intouch.callBack.userroutepointsobj[geofenceid];
+					var geofence = myproject.callBack.userroutepointsobj[geofenceid];
 					$(item).find(".txtpointname").val(geofence.name);
 					$(item).find(".txtpointname").attr("disabled",true);
 					$(item).find(".txtbuffer").val(geofence.buffer != undefined ? geofence.buffer : geofence.type== 'Point' ? '100' : '');
@@ -986,7 +986,7 @@ intouch.customRoute = (function(){
 					
 					if(dailyRouteAssignment.entityId != null && dailyRouteAssignment.entityId.length>0){
 						var entities = dailyRouteAssignment.entityId;
-						/*if(intouch.callBack.userentityobj.length==entities.length){
+						/*if(myproject.callBack.userentityobj.length==entities.length){
 							$("#AddAllDevice").click();
 						}else{*/
 							for(var i in entities){
@@ -1113,7 +1113,7 @@ intouch.customRoute = (function(){
 		    	
 			},
 			populateEntityList:function(){
-				var entityList = $intouch.commons.getEntityNameList();
+				var entityList = $myproject.commons.getEntityNameList();
 				if(!$("#crslcentity").children().length){
 			        var lis = "<option></option>";
 			        for (var id in entityList) {
@@ -1224,7 +1224,7 @@ intouch.customRoute = (function(){
 						var assignDateFilter = el.attachDateTimePicker($(".crassigndatefilter"));
 						assignDateFilter.on("dp.change",function(e){
 							var timestamp = e.date.unix();
-							intouch.customRoute.timestamp=timestamp;
+							myproject.customRoute.timestamp=timestamp;
 							controller.getRouteAssignList(timestamp);
 						});
 					}
@@ -1285,7 +1285,7 @@ intouch.customRoute = (function(){
 				var trs = "";
 				var sNo = 1;
 				var routeNames = getRouteNameList();
-				var entityNames = $intouch.commons.getEntityNameList(); 
+				var entityNames = $myproject.commons.getEntityNameList(); 
 				// 0-inactive 1- active 2- completed 3- complted late 4- manually closed 5- force closed
 				var status = "";
 				for(var id in routeAssignments){
@@ -1380,7 +1380,7 @@ intouch.customRoute = (function(){
 															
 									assignPointsTrs +='<tr style="background-color: #D6D5D5;">'
 										+'<td>'+assignments[index].sequence+'</td>'
-										+'<td>'+intouch.callBack.userroutepointsobj[assignments[index].geofenceId].name+'</td>'
+										+'<td>'+myproject.callBack.userroutepointsobj[assignments[index].geofenceId].name+'</td>'
 										+'<td>'+Util.UnixDateTime(plannedTimeCompare)+'</td>'
 										+'<td>'+actualTime+'</td>'
 										+'<td>'+actualSequence+'</td>'
@@ -1474,7 +1474,7 @@ intouch.customRoute = (function(){
 		$("#routetype").select2({
 			minimumResultsForSearch: -1
 		});
-		$intouch.commons.getroutepoints('routepointslist',false);
+		$myproject.commons.getroutepoints('routepointslist',false);
 		$("#routepointslist").select2({});
 		$("#routeTypeOption").select2({
 			placeholder: "Please select",
@@ -1975,7 +1975,7 @@ intouch.customRoute = (function(){
 	            success: function (response) {
 	            	if(response.status==200)
 	            		{
-	            		controller.getRouteAssignList(intouch.customRoute.timestamp);
+	            		controller.getRouteAssignList(myproject.customRoute.timestamp);
 	            		alert("Route assignment save successfully.");
 	            		 $('#editcustomroutemodal').modal('toggle');
 	            		 $("#customrouteRemarks").val("");
