@@ -21,7 +21,7 @@
 
 		function getLiveData(){
 
-			return $http.get('https://intouch.mapmyindia.com/IntouchAPI/mobileAPI/getlivedata?state=0&token='+constants.token+'')
+			return $http.get('https://sampleurl')
 				.then(getLiveDataCompleted)
 				.catch(getLiveDataFailed);
 
