@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 
-var intouch = intouch || {};
-intouch.geofence = $
+var myproject = myproject || {};
+myproject.geofence = $
 		.extend(
 				{},
 				{
@@ -117,7 +117,7 @@ intouch.geofence = $
 
 					},
 					init : function(data) {
-						this.map_geofence = intouch.geofence
+						this.map_geofence = myproject.geofence
 						.loadMap('map_geofence');
 						
 						
@@ -157,26 +157,26 @@ intouch.geofence = $
 						
 						this.map_geofence.on('draw:created', function (e) {
 							
-							if(intouch.geofence.map_geofence.getZoom()>=10){
+							if(myproject.geofence.map_geofence.getZoom()>=10){
 								var type = e.layerType,
 								layer = e.layer;
-							if(!$.isEmptyObject(intouch.geofence.layer))
+							if(!$.isEmptyObject(myproject.geofence.layer))
 								{
-								drawnItems.removeLayer(intouch.geofence.layer);
+								drawnItems.removeLayer(myproject.geofence.layer);
 								if (type === 'marker') {
 									try{
-										intouch.geofence.map_geofence.removeLayer(intouch.geofence.circleMarkers[intouch.geofence.preGeofenceId]);
+										myproject.geofence.map_geofence.removeLayer(myproject.geofence.circleMarkers[myproject.geofence.preGeofenceId]);
 									}catch(e){
 										
 									}
 								}
 								}
 							layer.flag = "I";
-								intouch.geofence.layer = layer;
-								intouch.geofence.layerType = type;
+								myproject.geofence.layer = layer;
+								myproject.geofence.layerType = type;
 							if (type === 'marker') {
 								var arrGeofenceId = new Array();
-								for(var id in intouch.geofence.circleMarkers){
+								for(var id in myproject.geofence.circleMarkers){
 									arrGeofenceId.push(id);
 									}
 								arrGeofenceId.sort();
@@ -190,9 +190,9 @@ intouch.geofence = $
 								}
 								
 								layer.geofenceId = geofenceId;
-								intouch.geofence.preGeofenceId = geofenceId;
-								var markerCircle = L.circle(layer.getLatLng(),100).addTo(intouch.geofence.map_geofence);
-								intouch.geofence.circleMarkers[geofenceId] = markerCircle;
+								myproject.geofence.preGeofenceId = geofenceId;
+								var markerCircle = L.circle(layer.getLatLng(),100).addTo(myproject.geofence.map_geofence);
+								myproject.geofence.circleMarkers[geofenceId] = markerCircle;
 								
 							}
 
@@ -223,48 +223,48 @@ intouch.geofence = $
 						this.map_geofence.on('draw:editmove', function (e) {
 							   if(e.layer instanceof L.Marker)
 								   {
-								   intouch.geofence.markerCircleLayer = e.layer;
+								   myproject.geofence.markerCircleLayer = e.layer;
 								   var geofenceId;
 								   if(e.layer.geofenceId !== undefined)
 									   {
 									    geofenceId = e.layer.geofenceId;   
 									   }
 								   else{
-									   geofenceId = intouch.geofence.selectedGeofenceId;
+									   geofenceId = myproject.geofence.selectedGeofenceId;
 								   }
-								  var circleMarker = intouch.geofence.circleMarkers[geofenceId];
+								  var circleMarker = myproject.geofence.circleMarkers[geofenceId];
 								  circleMarker.setLatLng(e.layer.getLatLng());
 								   }
 							});
 						this.map_geofence.on('draw:editstop', function (e) {
-//							   if(intouch.geofence.markerCircleLayer instanceof L.Marker)
+//							   if(myproject.geofence.markerCircleLayer instanceof L.Marker)
 //								   {
-//								   var layer = intouch.geofence.markerCircleLayer;
+//								   var layer = myproject.geofence.markerCircleLayer;
 //								   var geofenceId;
 //								   if(layer.geofenceId !== undefined)
 //									   {
 //									    geofenceId = layer.geofenceId;   
 //									   }
 //								   else{
-//									   geofenceId = intouch.geofence.selectedGeofenceId;
+//									   geofenceId = myproject.geofence.selectedGeofenceId;
 //								   }
-//								  var circleMarker = intouch.geofence.circleMarkers[geofenceId];
+//								  var circleMarker = myproject.geofence.circleMarkers[geofenceId];
 //								  circleMarker.setLatLng(layer.getLatLng());
 //								   }
 							   
-							   if(intouch.geofence.layer !== undefined)
+							   if(myproject.geofence.layer !== undefined)
 								   {
-								  var layer = intouch.geofence.layer;
+								  var layer = myproject.geofence.layer;
 								    if(layer.flag == "U")
 									   {
-								    	intouch.geofence.actionMode = "U";
+								    	myproject.geofence.actionMode = "U";
 									   var myStyle = {
 //											    "color": "#ff7800",
 //											    "weight": 5,
 //											    "opacity": 0.65
 											};
-									   intouch.geofence.map_geofence.removeLayer(layer);
-									   var data = intouch.geofence.allGeofenceData[intouch.geofence.selectedGeofenceId];
+									   myproject.geofence.map_geofence.removeLayer(layer);
+									   var data = myproject.geofence.allGeofenceData[myproject.geofence.selectedGeofenceId];
 										
 										var geometry = data.geometry;
 										var geofenceId = data.id;
@@ -281,21 +281,21 @@ intouch.geofence = $
 										var layer;
 										if(type == "Circle")
 											{
-											layer = L.circle([latitude, longitude], radius).addTo(intouch.geofence.map_geofence);
+											layer = L.circle([latitude, longitude], radius).addTo(myproject.geofence.map_geofence);
 											}
 										else{
 											layer = L.geoJson(geometry, {
 											    style: myStyle
-											}).addTo(intouch.geofence.map_geofence);	
+											}).addTo(myproject.geofence.map_geofence);	
 											if(type == "Point") 
 												{
-												intouch.geofence.map_geofence.removeLayer(intouch.geofence.circleMarkers[intouch.geofence.selectedGeofenceId]);
-												var markerCircle = L.circle([latitude, longitude],  100).addTo(intouch.geofence.map_geofence);
-												intouch.geofence.circleMarkers[intouch.geofence.selectedGeofenceId] = markerCircle;
+												myproject.geofence.map_geofence.removeLayer(myproject.geofence.circleMarkers[myproject.geofence.selectedGeofenceId]);
+												var markerCircle = L.circle([latitude, longitude],  100).addTo(myproject.geofence.map_geofence);
+												myproject.geofence.circleMarkers[myproject.geofence.selectedGeofenceId] = markerCircle;
 												}
 										}
 										layer.bindPopup(geofenceName);
-										intouch.geofence.geofenceLayers[intouch.geofence.selectedGeofenceId] = layer;
+										myproject.geofence.geofenceLayers[myproject.geofence.selectedGeofenceId] = layer;
 									   }
 								   }
 							});
@@ -357,7 +357,7 @@ intouch.geofence = $
 					
 					randerAllGeofence:function(data){
 						
-						this.removeLayers(intouch.geofence.geofenceLayers,intouch.geofence.circleMarkers);
+						this.removeLayers(myproject.geofence.geofenceLayers,myproject.geofence.circleMarkers);
 						var data = data.data;
 						this.geofenceLayers = {};
 						this.circleMarkers = {};
@@ -422,12 +422,12 @@ intouch.geofence = $
 					
 					createGeofence : function(e) {
 
-						if (intouch.geofence.circle !== undefined) {
-							this.removeLayer(intouch.geofence.circle);
+						if (myproject.geofence.circle !== undefined) {
+							this.removeLayer(myproject.geofence.circle);
 						}
 
-						var zoomLevel = intouch.geofence.map_geofence.getZoom();
-						var bound = intouch.geofence.map_geofence.getBounds();
+						var zoomLevel = myproject.geofence.map_geofence.getZoom();
+						var bound = myproject.geofence.map_geofence.getBounds();
 						var oneLatLng = bound._northEast;
 						var otherLatLng = bound._southWest;
 						var distance = oneLatLng.distanceTo(otherLatLng);
@@ -436,11 +436,11 @@ intouch.geofence = $
 
 						if (zoomLevel >= 10) {
 							if (zoomLevel == 10) {
-								intouch.geofence.circle = L.circle(e.latlng,
+								myproject.geofence.circle = L.circle(e.latlng,
 										36000);
 								$(".slider-geozone").slider("setValue", 36000);
 							} else {
-								intouch.geofence.circle = L.circle(e.latlng,
+								myproject.geofence.circle = L.circle(e.latlng,
 										disMeter);
 							}
 						} else {
@@ -448,26 +448,26 @@ intouch.geofence = $
 							return false;
 						}
 
-						this.addLayer(intouch.geofence.circle);
-						var bound = intouch.geofence.circle.getBounds();
+						this.addLayer(myproject.geofence.circle);
+						var bound = myproject.geofence.circle.getBounds();
 						var bounds = L.latLngBounds(bound.getSouthWest(), bound
 								.getNorthEast());
 					},
 					
 					resetGeofenceState:function(){
-						if(intouch.geofence.layer !== undefined)
+						if(myproject.geofence.layer !== undefined)
 						   {
-						  var layer = intouch.geofence.layer;
+						  var layer = myproject.geofence.layer;
 						    if(layer.flag == "U")
 							   {
-						    	intouch.geofence.actionMode = "U";
+						    	myproject.geofence.actionMode = "U";
 							   var myStyle = {
 //									    "color": "#ff7800",
 //									    "weight": 5,
 //									    "opacity": 0.65
 									};
-							   intouch.geofence.map_geofence.removeLayer(layer);
-							   var data = intouch.geofence.allGeofenceData[intouch.geofence.selectedGeofenceId];
+							   myproject.geofence.map_geofence.removeLayer(layer);
+							   var data = myproject.geofence.allGeofenceData[myproject.geofence.selectedGeofenceId];
 								
 								var geometry = data.geometry;
 								var geofenceId = data.id;
@@ -480,35 +480,35 @@ intouch.geofence = $
 								var layer;
 								if(type == "Circle")
 									{
-									layer = L.circle([latitude, longitude], radius).addTo(intouch.geofence.map_geofence);
+									layer = L.circle([latitude, longitude], radius).addTo(myproject.geofence.map_geofence);
 									}
 								else{
 									layer = L.geoJson(geometry, {
 									    style: myStyle
-									}).addTo(intouch.geofence.map_geofence);	
+									}).addTo(myproject.geofence.map_geofence);	
 									if(type == "Point") 
 										{
-										intouch.geofence.map_geofence.removeLayer(intouch.geofence.circleMarkers[intouch.geofence.selectedGeofenceId]);
-										var markerCircle = L.circle([latitude, longitude],  100).addTo(intouch.geofence.map_geofence);
-										intouch.geofence.circleMarkers[intouch.geofence.selectedGeofenceId] = markerCircle;
+										myproject.geofence.map_geofence.removeLayer(myproject.geofence.circleMarkers[myproject.geofence.selectedGeofenceId]);
+										var markerCircle = L.circle([latitude, longitude],  100).addTo(myproject.geofence.map_geofence);
+										myproject.geofence.circleMarkers[myproject.geofence.selectedGeofenceId] = markerCircle;
 										}
 								}
 								layer.bindPopup(geofenceName);
-								intouch.geofence.geofenceLayers[intouch.geofence.selectedGeofenceId] = layer;
+								myproject.geofence.geofenceLayers[myproject.geofence.selectedGeofenceId] = layer;
 							   }
 						   }
 					},
 
 					centerMap : function(e) {
-						intouch.geofence.map_geofence.panTo(e.latlng);
+						myproject.geofence.map_geofence.panTo(e.latlng);
 					},
 
 					zoomIn : function(e) {
-						intouch.geofence.map_geofence.zoomIn();
+						myproject.geofence.map_geofence.zoomIn();
 					},
 
 					zoomOut : function(e) {
-						intouch.geofence.map_geofence.zoomOut();
+						myproject.geofence.map_geofence.zoomOut();
 					},
 					getMap : function() {
 						return this.map_geofence;
@@ -516,7 +516,7 @@ intouch.geofence = $
 					sliderValue : function(e) {
 						try {
 							this.radius = e.value;
-							intouch.geofence.circle.setRadius(e.value);
+							myproject.geofence.circle.setRadius(e.value);
 						} catch (e) {
 						}
 					},
@@ -570,14 +570,14 @@ intouch.geofence = $
 						}
 					},
 					searchLocation : function(address) {
-						intouch.geofence.searchicon = $("#searchlocation")
+						myproject.geofence.searchicon = $("#searchlocation")
 								.parent().find(".iconchange");
-						intouch.geofence.searchicon
+						myproject.geofence.searchicon
 								.removeClass("icon icon-Search");
-						intouch.geofence.searchicon
+						myproject.geofence.searchicon
 								.addClass("fa fa-spinner fa-spin");
-						intouch.ajax("searchlocation", "location=" + address
-								+ "", intouch.callBack.searchLocation);
+						myproject.ajax("searchlocation", "location=" + address
+								+ "", myproject.callBack.searchLocation);
 					},
 					locationData : function(data, options) {
 						var lat, lng, type;
@@ -597,22 +597,22 @@ intouch.geofence = $
 							this.removeGeofenceMarker(this.geofenceMarker);
 						
 						this.createGeofenceMarker(latLng);
-						intouch.geofence.searchicon
+						myproject.geofence.searchicon
 								.removeClass("fa fa-spinner fa-spin");
-						intouch.geofence.searchicon
+						myproject.geofence.searchicon
 								.addClass("icon icon-Search");
 					},
 					saveGeofence : function(data, options) {
 						if (data.status == 200) {
 							alert("Geofence saved successfully.");
 							
-							intouch.ajax(apiUrl + "getGeofence", "token="+ token + "",
-									intouch.callBack.getGeofenceList);
-							intouch.geofence.actionMode = "AC"; 
-							intouch.geofence.resetGeofenceCreation();
+							myproject.ajax(apiUrl + "getGeofence", "token="+ token + "",
+									myproject.callBack.getGeofenceList);
+							myproject.geofence.actionMode = "AC"; 
+							myproject.geofence.resetGeofenceCreation();
 							
 							//refresh geozone list in alarm tab.
-							intouch.geofence.refreshGeozoneList();
+							myproject.geofence.refreshGeozoneList();
 						}else if (data.status == 405) {
 							alert("Geofence already exist.");
 						}else if(data.status == 701){
@@ -624,12 +624,12 @@ intouch.geofence = $
 					updateGeofence : function(data, options) {
 						if (data.status == 200) {
 						alert("Geofence update successfully.");
-						intouch.ajax(apiUrl + "getGeofence", "token="+ token + "",
-								intouch.callBack.getGeofenceList);
-						intouch.geofence.resetGeofenceCreation();
+						myproject.ajax(apiUrl + "getGeofence", "token="+ token + "",
+								myproject.callBack.getGeofenceList);
+						myproject.geofence.resetGeofenceCreation();
 						
 						//refresh geozone list in alarm tab.
-						intouch.geofence.refreshGeozoneList();
+						myproject.geofence.refreshGeozoneList();
 						} else if (data.status == 402) {
 							alert("Geofence not found.");
 						}else if (data.status == 405) {
@@ -643,13 +643,13 @@ intouch.geofence = $
 					resetGeofenceCreation:function(){
 						$("#searchlocation").val("");
 						$(".geofencename").val("");
-						intouch.geofence.geofenceOperation = "";
-						if(intouch.geofence.selectedGeofenceId != undefined){
-							intouch.geofence.selectedGeofenceId = "";
+						myproject.geofence.geofenceOperation = "";
+						if(myproject.geofence.selectedGeofenceId != undefined){
+							myproject.geofence.selectedGeofenceId = "";
 						}
 						
 						try{
-							intouch.geofence.removeGeofenceMarker(intouch.geofence.geofenceMarker);	
+							myproject.geofence.removeGeofenceMarker(myproject.geofence.geofenceMarker);	
 						}
 						catch(e){
 						}
@@ -658,34 +658,34 @@ intouch.geofence = $
 						for (var toolbarId in drawControl._toolbars) {
 						    toolbar = drawControl._toolbars[toolbarId];
 						    if (toolbar instanceof L.EditToolbar) {
-						    	intouch.geofence.toolbar = toolbar._modes.edit.handler; 
+						    	myproject.geofence.toolbar = toolbar._modes.edit.handler; 
 						        toolbar._modes.edit.handler.disable();
 						    }
 						}
-						intouch.geofence.drawnItems.removeLayer(intouch.geofence.layer);
-						if(intouch.geofence.actionMode == "C")
+						myproject.geofence.drawnItems.removeLayer(myproject.geofence.layer);
+						if(myproject.geofence.actionMode == "C")
 							{
 							try{
-							intouch.geofence.map_geofence.addLayer(intouch.geofence.layer);
+							myproject.geofence.map_geofence.addLayer(myproject.geofence.layer);
 							}
 							catch(e){}
 							}
-						intouch.geofence.actionCreateEdit = "C";
-						intouch.geofence.showCreateToolBar();
-//						intouch.geofence.layer = {};
+						myproject.geofence.actionCreateEdit = "C";
+						myproject.geofence.showCreateToolBar();
+//						myproject.geofence.layer = {};
 					},
 					deleteGeofence : function(data, options) {
 						
-						intouch.geofence.map_geofence.removeLayer(intouch.geofence.geofenceLayers[options.geofenceId]);
+						myproject.geofence.map_geofence.removeLayer(myproject.geofence.geofenceLayers[options.geofenceId]);
 						alert("Geofence delete successfully.");
-						intouch.geofence.resetGeofenceCreation();
-						intouch.ajax(apiUrl + "getGeofence", "token="
+						myproject.geofence.resetGeofenceCreation();
+						myproject.ajax(apiUrl + "getGeofence", "token="
 								+ token + "",
-								intouch.callBack.getGeofenceList);
+								myproject.callBack.getGeofenceList);
 
 						
 						//refresh geozone list in alarm tab.
-						intouch.geofence.refreshGeozoneList();
+						myproject.geofence.refreshGeozoneList();
 					},
 					editGeofence : function(data, options) {
 
@@ -697,16 +697,16 @@ intouch.geofence = $
 						var options = new Array();
 						options.push("geozone");
 						options.push(false);
-						intouch.ajax(apiUrl+"getusergeofence", "token=" + token, intouch.callBack.getusergeofencecallback,options,'',false);
+						myproject.ajax(apiUrl+"getusergeofence", "token=" + token, myproject.callBack.getusergeofencecallback,options,'',false);
 					},
 					resetGeofenceForm : function() {
 
 						$("#searchlocation").val("");
 						$(".geofencename").val("");
 						$(".slider-geozone").slider("setValue", 0);
-						if (intouch.geofence.circle !== undefined) {
-							intouch.geofence.map_geofence
-									.removeLayer(intouch.geofence.circle);
+						if (myproject.geofence.circle !== undefined) {
+							myproject.geofence.map_geofence
+									.removeLayer(myproject.geofence.circle);
 						}
 						$("#alarmvehiclelist").find("li").eq(0).find("a")
 								.trigger("click");
@@ -722,18 +722,18 @@ intouch.geofence = $
 					},
 					displayGeofenceList:function(response){
 						try{
-							intouch.geofence.geofencetable.destroy();
+							myproject.geofence.geofencetable.destroy();
 						}catch(e){
 							
 						}
-						intouch.geofence.geofenceDataList = {};
+						myproject.geofence.geofenceDataList = {};
 						var rows = "";
 						var count = 1;
 						var data=response.data;
 						var radius ="";
 						var geofenceType = "";
 						for ( var geofence in data) {
-							intouch.geofence.geofenceDataList[data[geofence].id] = data[geofence]
+							myproject.geofence.geofenceDataList[data[geofence].id] = data[geofence]
 							if(data[geofence].buffer !== undefined){
 								//radius = parseInt(data[geofence].buffer);
 								radius = Math.round(data[geofence].buffer);
@@ -784,7 +784,7 @@ intouch.geofence = $
 						}
 						$("#tblgeofence").html(rows);
 						
-						intouch.geofence.geofencetable = $('#geofencetable').DataTable({
+						myproject.geofence.geofencetable = $('#geofencetable').DataTable({
 							"aaSorting" : [ [ 0, 'asc' ] ],
 							"destroy" : true,
 							"iDisplayLength" : 100,
@@ -826,7 +826,7 @@ $(document)
 									function() {
 										
 										try{
-											intouch.geofence.map_geofence.removeLayer(intouch.geofence.layer);
+											myproject.geofence.map_geofence.removeLayer(myproject.geofence.layer);
 											}
 											catch(e){}
 											
@@ -835,8 +835,8 @@ $(document)
 										.closest("tr");
 								var geofenceId = selectTr
 										.attr("geofenceid");
-										var layer = intouch.geofence.geofenceLayers[geofenceId];
-										intouch.geofence.map_geofence
+										var layer = myproject.geofence.geofenceLayers[geofenceId];
+										myproject.geofence.map_geofence
 										.fitBounds(
 												layer.getBounds(),
 												{
@@ -850,20 +850,20 @@ $(document)
 //											$(".creategeofence").parent()
 //													.hide();
 											
-											intouch.geofence
+											myproject.geofence
 													.resetGeofenceForm();
 											// reset geofence action to create
-											intouch.geofence.actionType = "create";
-											intouch.ajax(apiUrl + "deleteGeofence","geozoneId="+ geofenceId+ "&token="
+											myproject.geofence.actionType = "create";
+											myproject.ajax(apiUrl + "deleteGeofence","geozoneId="+ geofenceId+ "&token="
 								+ token + "",
-															intouch.geofence.deleteGeofence,{geofenceId:geofenceId});
+															myproject.geofence.deleteGeofence,{geofenceId:geofenceId});
 
 										}
 					 				});
 					
 					$(document).off("click",".editgeofence");
 					$(document).on("click",".editgeofence",function(){
-						intouch.geofence.geofenceOperation = "U";
+						myproject.geofence.geofenceOperation = "U";
 						var selectedTr = $(this).closest("tr");
 						var geofenceId = selectedTr
 								.attr("geofenceid");
@@ -877,39 +877,39 @@ $(document)
 						}else{
 							$(".isSchool").prop("checked",false);
 						}
-						if(!$.isEmptyObject(intouch.geofence.layer))
+						if(!$.isEmptyObject(myproject.geofence.layer))
 							{
-							intouch.geofence.drawnItems.removeLayer(intouch.geofence.layer);
-							if(intouch.geofence.actionCreateEdit !== "C")
+							myproject.geofence.drawnItems.removeLayer(myproject.geofence.layer);
+							if(myproject.geofence.actionCreateEdit !== "C")
 								{
-									intouch.geofence.map_geofence.addLayer(intouch.geofence.layer);
+									myproject.geofence.map_geofence.addLayer(myproject.geofence.layer);
 								
 								}
 							}
-						  intouch.geofence.actionCreateEdit = "U";
+						  myproject.geofence.actionCreateEdit = "U";
 				
-						intouch.geofence.selectedGeofenceId = geofenceId;
-						var layer = intouch.geofence.geofenceLayers[geofenceId];
-						intouch.geofence.prevGeofenceStatus = {};
+						myproject.geofence.selectedGeofenceId = geofenceId;
+						var layer = myproject.geofence.geofenceLayers[geofenceId];
+						myproject.geofence.prevGeofenceStatus = {};
 						
-						intouch.geofence.prevGeofenceStatus[intouch.geofence.selectedGeofenceId] = layer;
+						myproject.geofence.prevGeofenceStatus[myproject.geofence.selectedGeofenceId] = layer;
 						
-						if(intouch.geofence.geofenceDataList[geofenceId].type == "Circle")
+						if(myproject.geofence.geofenceDataList[geofenceId].type == "Circle")
 							{	
-							intouch.geofence.drawnItems.addLayer(layer);
-							intouch.geofence.layer = layer;
+							myproject.geofence.drawnItems.addLayer(layer);
+							myproject.geofence.layer = layer;
 							}
 						else{
 						
-						layer.eachLayer(function(lay){intouch.geofence.editGeofenceLayer = lay});
-						intouch.geofence.drawnItems.addLayer(intouch.geofence.editGeofenceLayer);
+						layer.eachLayer(function(lay){myproject.geofence.editGeofenceLayer = lay});
+						myproject.geofence.drawnItems.addLayer(myproject.geofence.editGeofenceLayer);
 						
-						intouch.geofence.layer = intouch.geofence.editGeofenceLayer;
+						myproject.geofence.layer = myproject.geofence.editGeofenceLayer;
 						
 						}
-						intouch.geofence.layer.flag = "U";
+						myproject.geofence.layer.flag = "U";
 						try{
-							intouch.geofence.map_geofence.removeLayer(intouch.geofence.circleMarkers[intouch.geofence.preGeofenceId]);	
+							myproject.geofence.map_geofence.removeLayer(myproject.geofence.circleMarkers[myproject.geofence.preGeofenceId]);	
 						}catch(e){}
 						
 						
@@ -920,14 +920,14 @@ $(document)
 						for (var toolbarId in drawControl._toolbars) {
 						    toolbar = drawControl._toolbars[toolbarId];
 						    if (toolbar instanceof L.EditToolbar) {
-						    	intouch.geofence.toolbar = toolbar._modes.edit.handler; 
+						    	myproject.geofence.toolbar = toolbar._modes.edit.handler; 
 						        toolbar._modes.edit.handler.enable();
 						    }
 						}
 						
 						
-						intouch.geofence.el.geofenceName.val(intouch.geofence.geofenceDataList[geofenceId].name);
-						intouch.geofence.map_geofence
+						myproject.geofence.el.geofenceName.val(myproject.geofence.geofenceDataList[geofenceId].name);
+						myproject.geofence.map_geofence
 						.fitBounds(
 								layer.getBounds(),
 								{
@@ -935,7 +935,7 @@ $(document)
 								});
 
 						$(".creategeofence").parent().show();
-						intouch.geofence.hideCreateToolBar();
+						myproject.geofence.hideCreateToolBar();
 					});
 					
 					
@@ -946,24 +946,24 @@ $(document)
 
 							var geofenceId = selectedTr.attr("geofenceid");
 							var type = selectedTr.attr("type");
-							if(!$.isEmptyObject(intouch.geofence.preViewGeofence)){
+							if(!$.isEmptyObject(myproject.geofence.preViewGeofence)){
 								try{
-									intouch.geofence.circleMarkers[intouch.geofence.preViewGeofence.prevViewGeofenceId].setStyle({color:"rgb(0, 51, 255)",fillColor:"rgb(0, 51, 255)"});
+									myproject.geofence.circleMarkers[myproject.geofence.preViewGeofence.prevViewGeofenceId].setStyle({color:"rgb(0, 51, 255)",fillColor:"rgb(0, 51, 255)"});
 								}catch(e){}
-								intouch.geofence.preViewGeofence.setStyle({color:"rgb(0, 51, 255)",fillColor:"rgb(0, 51, 255)"});
+								myproject.geofence.preViewGeofence.setStyle({color:"rgb(0, 51, 255)",fillColor:"rgb(0, 51, 255)"});
 							}
-							var layer = intouch.geofence.geofenceLayers[geofenceId];
-							intouch.geofence.preViewGeofence = layer;
+							var layer = myproject.geofence.geofenceLayers[geofenceId];
+							myproject.geofence.preViewGeofence = layer;
 							if(type == "Point"){
 								layer.prevViewGeofenceId = geofenceId;
-								intouch.geofence.circleMarkers[geofenceId].setStyle({color:"#00e6e6",fillColor:"#4dffff"});	
+								myproject.geofence.circleMarkers[geofenceId].setStyle({color:"#00e6e6",fillColor:"#4dffff"});	
 							}else{
 								layer.setStyle({color:"#00e6e6",fillColor:"#4dffff"});
 							}
 							
 							//show bind popup 
 							layer.openPopup();
-							intouch.geofence.map_geofence.fitBounds(layer.getBounds(),{
+							myproject.geofence.map_geofence.fitBounds(layer.getBounds(),{
 								maxZoom : 18
 							});
 					});
@@ -976,23 +976,23 @@ $(document)
 								var x = $("#hdnlon").val();
 								var y = $("#hdnlat").val();
 								if ($("#searchlocation").val() ===   $("#hdnaddress").val()) {
-									intouch.geofence.searchicon = $("#searchlocation")
+									myproject.geofence.searchicon = $("#searchlocation")
 											.parent().find(".iconchange");
-									intouch.geofence.searchicon
+									myproject.geofence.searchicon
 											.removeClass("icon icon-Search");
-									intouch.geofence.searchicon
+									myproject.geofence.searchicon
 											.addClass("fa fa-spinner fa-spin");
 
 									$.ajax({
 										url : "decode?x=" + x + "&y=" + y
 									}).done(function(data) {
 										var point = data.split("$");
-										intouch.geofence.locationData(point, {
+										myproject.geofence.locationData(point, {
 											type : "auto"
 										})
 									});
 								} else {
-									intouch.geofence.searchLocation(locValue);
+									myproject.geofence.searchLocation(locValue);
 								}
 							} else {
 								alert("Please enter location");
@@ -1004,24 +1004,24 @@ $(document)
 				$(document).on('click', '.creategeofence', function() {
 					//hide this
 					//$(this).parent().hide();
-					//intouch.geofence.resetGeofenceForm();
-					intouch.geofence.actionMode = "C";
-					intouch.geofence.resetGeofenceCreation();
+					//myproject.geofence.resetGeofenceForm();
+					myproject.geofence.actionMode = "C";
+					myproject.geofence.resetGeofenceCreation();
 					// reset geofence action to create
-					intouch.geofence.geofenceOperation = "C"
-					intouch.geofence.actionType = "create";
-					intouch.geofence.showCreateToolBar();
-					intouch.geofence.actionCreateEdit = "C";
+					myproject.geofence.geofenceOperation = "C"
+					myproject.geofence.actionType = "create";
+					myproject.geofence.showCreateToolBar();
+					myproject.geofence.actionCreateEdit = "C";
 					 
-					var layer = intouch.geofence.layer;
+					var layer = myproject.geofence.layer;
 					if(layer.flag == "I"){
-						if(intouch.geofence.layerType == "marker"){
-						   intouch.geofence.map_geofence.removeLayer(intouch.geofence.circleMarkers[intouch.geofence.layer.geofenceId]);
+						if(myproject.geofence.layerType == "marker"){
+						   myproject.geofence.map_geofence.removeLayer(myproject.geofence.circleMarkers[myproject.geofence.layer.geofenceId]);
 						}
-						intouch.geofence.map_geofence.removeLayer(layer);
+						myproject.geofence.map_geofence.removeLayer(layer);
 						  
 					}
-					intouch.geofence.layer = {};
+					myproject.geofence.layer = {};
 				});
 				
 				$(document).on("keydown",".searchlocation",
@@ -1032,23 +1032,23 @@ $(document)
 								var y = $("#hdnlat").val();
 								//if (x != undefined && x != "") {
 								if ($("#searchlocation").val() ===   $("#hdnaddress").val()) {
-									intouch.geofence.searchicon = $("#searchlocation")
+									myproject.geofence.searchicon = $("#searchlocation")
 											.parent().find(".iconchange");
-									intouch.geofence.searchicon
+									myproject.geofence.searchicon
 											.removeClass("icon icon-Search");
-									intouch.geofence.searchicon
+									myproject.geofence.searchicon
 											.addClass("fa fa-spinner fa-spin");
 
 									$.ajax({
 										url : "decode?x=" + x + "&y=" + y
 									}).done(function(data) {
 										var point = data.split("$");
-										intouch.geofence.locationData(point, {
+										myproject.geofence.locationData(point, {
 											type : "auto"
 										})
 									});
 								} else {
-									intouch.geofence.searchLocation($.trim($(this).val()));
+									myproject.geofence.searchLocation($.trim($(this).val()));
 								}
 							} else {
 								alert("Please enter location");
@@ -1099,47 +1099,47 @@ $("#geofencebtn").click(function() {
 		searchObjProps : "addr",
 		resultsHighlight : false
 	}, "");
-	if (intouch.geofence.map_geofence === undefined) {
+	if (myproject.geofence.map_geofence === undefined) {
 		
 		
-		intouch.geofence.init();
+		myproject.geofence.init();
 	}
 	else{
-		intouch.geofence.map_geofence.invalidateSize();
+		myproject.geofence.map_geofence.invalidateSize();
 	}
 	//To Load Geofence List
-	if($.isEmptyObject(intouch.geofence.geofenceDataList)){
-		intouch.ajax(apiUrl + "getGeofence", "token="
+	if($.isEmptyObject(myproject.geofence.geofenceDataList)){
+		myproject.ajax(apiUrl + "getGeofence", "token="
 				+ token+ "",
-				intouch.callBack.getGeofenceList);
+				myproject.callBack.getGeofenceList);
 	}
 	
 });
 
 $(document).on("click","#generategeofence",function(){
-	var Elements = intouch.geofence.el;
-	if(intouch.geofence.validateGeofenceForm(Elements)){
+	var Elements = myproject.geofence.el;
+	if(myproject.geofence.validateGeofenceForm(Elements)){
 		var name = $(".geofencename").val();
 		var description = Elements.geofenceDescription.val();
-		var type = intouch.geofence.getGeofenceType();
+		var type = myproject.geofence.getGeofenceType();
 		var isSchoolMark = false;
 		if($(".isSchool").is(':checked')){
 			isSchoolMark = true;
 		}
-		if(intouch.geofence.geofenceOperation == "U"){
-			type = intouch.geofence.geofenceDataList[intouch.geofence.selectedGeofenceId].type;	
+		if(myproject.geofence.geofenceOperation == "U"){
+			type = myproject.geofence.geofenceDataList[myproject.geofence.selectedGeofenceId].type;	
 		}
 		
 		var arrLatitude= new Array();
 		var arrLongitude = new Array();
 		var radius = "";
 		if(type === "Circle"){
-			radius = intouch.geofence.layer.getRadius();
-			var latlng = intouch.geofence.layer.getLatLng();
+			radius = myproject.geofence.layer.getRadius();
+			var latlng = myproject.geofence.layer.getLatLng();
 			arrLatitude.push(latlng.lat);			
 			arrLongitude.push(latlng.lng);
 		}else if(type === "Polygon"){
-			var latlngs = intouch.geofence.layer.getLatLngs();
+			var latlngs = myproject.geofence.layer.getLatLngs();
 			for(var index in latlngs){
 				arrLatitude.push(latlngs[index].lat);
 				arrLongitude.push(latlngs[index].lng);
@@ -1147,19 +1147,19 @@ $(document).on("click","#generategeofence",function(){
 			}
 		}
 		else if(type === "Point"){
-			var latlng = intouch.geofence.layer.getLatLng();
+			var latlng = myproject.geofence.layer.getLatLng();
 			arrLatitude.push(latlng.lat);			
 			arrLongitude.push(latlng.lng);
 		}
 		
-		if(intouch.geofence.geofenceOperation == "C"){
-			intouch.ajax(apiUrl + "createGeofence", "token=" + token+"&accountid="+uAccId
+		if(myproject.geofence.geofenceOperation == "C"){
+			myproject.ajax(apiUrl + "createGeofence", "token=" + token+"&accountid="+uAccId
 				+"&name="+name+"&latitude="+arrLatitude
-				+"&longitude="+arrLongitude+"&radius="+radius+"&type="+type+"&isSchool="+isSchoolMark,intouch.geofence.saveGeofence);
-		}else if(intouch.geofence.geofenceOperation == "U"){
-			intouch.ajax(apiUrl + "updateGeofence", "token=" + token+"&accountid="+uAccId
+				+"&longitude="+arrLongitude+"&radius="+radius+"&type="+type+"&isSchool="+isSchoolMark,myproject.geofence.saveGeofence);
+		}else if(myproject.geofence.geofenceOperation == "U"){
+			myproject.ajax(apiUrl + "updateGeofence", "token=" + token+"&accountid="+uAccId
 				+"&name="+name+"&latitude="+arrLatitude
-				+"&longitude="+arrLongitude+"&radius="+radius+"&type="+type+"&isSchool="+isSchoolMark+"&id="+intouch.geofence.selectedGeofenceId,intouch.geofence.updateGeofence);
+				+"&longitude="+arrLongitude+"&radius="+radius+"&type="+type+"&isSchool="+isSchoolMark+"&id="+myproject.geofence.selectedGeofenceId,myproject.geofence.updateGeofence);
 			}	
 		}
 });
@@ -1170,9 +1170,9 @@ $("#uploadGeofenceFrame").load(function(){
 $(".preloader").css('display','none');
 var json = $.parseJSON($("#uploadGeofenceFrame").contents().text());
 if (json.status == "1") {
-	intouch.ajax(apiUrl + "getGeofence", "token="
+	myproject.ajax(apiUrl + "getGeofence", "token="
 			+ token+ "",
-			intouch.callBack.getGeofenceList);
+			myproject.callBack.getGeofenceList);
 $("#geofencefile").val("");
 }
 alert(json.message);
